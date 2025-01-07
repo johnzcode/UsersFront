@@ -14,7 +14,8 @@ export class UsuarioListComponent {
     usuarioForm: Usuario = {
         nombre: '',
         email: '',
-        telefono: ''
+        telefono: '',
+        sexo: ''
     }
 
     editando = false;
@@ -66,7 +67,8 @@ export class UsuarioListComponent {
         this.usuarioForm = {
             nombre: '',
             email: '',
-            telefono: ''
+            telefono: '',
+            sexo: ''
         };
         this.editando = false;
         this.usuarioId = null;

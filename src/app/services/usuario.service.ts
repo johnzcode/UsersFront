@@ -7,6 +7,7 @@ export interface Usuario {
     nombre: string;
     email: string;
     telefono: string;
+    sexo: string;
 }
 
 @Injectable({

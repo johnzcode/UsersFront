@@ -1,42 +1,75 @@
-<div class="container mx-auto p-4">
-    <h2 class="text-2xl font-bold mb-4">Gestión de Usuarios</h2>
-    
+<div id="crud-modal" class="container-main gap-4 p-4">
+
     <!-- Formulario -->
-    <div class="mb-6 p-4 border rounded">
-        <h3 class="text-xl mb-3">{{editando ? 'Editar Usuario' : 'Nuevo Usuario'}}</h3>
-        <div class="grid gap-4">
-            <input [(ngModel)]="usuarioForm.nombre" 
-                   placeholder="Nombre" 
-                   class="p-2 border rounded">
-            <input [(ngModel)]="usuarioForm.email" 
-                   placeholder="Email" 
-                   class="p-2 border rounded">
-            <input [(ngModel)]="usuarioForm.telefono" 
-                   placeholder="Teléfono" 
-                   class="p-2 border rounded">
-            <button (click)="guardarUsuario()" 
-                    class="bg-blue-500 text-white p-2 rounded">
-                {{editando ? 'Actualizar' : 'Crear'}}
-            </button>
+    <div class="relative p-4">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Crear nuevo usuario
+                </h3>
+            </div>
+            
+            <form class="p-4">
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Nombre
+                        </label>
+                        <input [(ngModel)]="usuarioForm.nombre" type="text" name="name" id="name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Ingrese el nombre" required />
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Teléfono
+                        </label>
+                        <input [(ngModel)]="usuarioForm.telefono" type="number" name="price" id="price"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Número de teléfono" required />
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Sexo
+                        </label>
+                        <select id="category"
+                            class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                            <option selected>Seleccione sexo</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Email
+                        </label>
+                        <input [(ngModel)]="usuarioForm.email" type="text" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Ingrese el email" required />
+                    </div>
+                </div>
+                <button type="submit" (click)="guardarUsuario()"
+                    class="text-white inline-flex items-center bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
+                    Guardar usuario
+                </button>
+            </form>
         </div>
     </div>
 
     <!-- Lista de Usuarios -->
-    <div class="grid gap-4">
-        <div *ngFor="let usuario of usuarios" 
-             class="p-4 border rounded flex justify-between items-center">
+    <div class="w-1/2 p-4">
+        <h3 class="text-lg font-semibold mb-4">Lista de Usuarios</h3>
+        <div *ngFor="let usuario of usuarios"
+            class="p-4 border rounded mb-2 flex justify-between items-center bg-white">
             <div>
                 <h3 class="font-bold">{{usuario.nombre}}</h3>
                 <p>Email: {{usuario.email}}</p>
                 <p>Teléfono: {{usuario.telefono}}</p>
             </div>
             <div class="space-x-2">
-                <button (click)="editarUsuario(usuario)" 
-                        class="bg-yellow-500 text-white p-2 rounded">
+                <button (click)="editarUsuario(usuario)" class="bg-yellow-500 text-white p-2 rounded">
                     Editar
                 </button>
-                <button (click)="eliminarUsuario(usuario.id!)" 
-                        class="bg-red-500 text-white p-2 rounded">
+                <button (click)="eliminarUsuario(usuario.id!)" class="bg-red-500 text-white p-2 rounded">
                     Eliminar
                 </button>
             </div>
