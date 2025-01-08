@@ -31,7 +31,7 @@
                         <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Sexo
                         </label>
-                        <select id="category"
+                        <select id="category" [(ngModel)]="usuarioForm.sexo" name="sexo" id="sexo" required
                             class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                             <option selected>Seleccione sexo</option>
                             <option value="Hombre">Hombre</option>
@@ -64,6 +64,7 @@
                 <h3 class="font-bold">{{usuario.nombre}}</h3>
                 <p>Email: {{usuario.email}}</p>
                 <p>Teléfono: {{usuario.telefono}}</p>
+                <p>Sexo: {{usuario.sexo}}</p>
             </div>
             <div class="space-x-2">
                 <button (click)="editarUsuario(usuario)" class="bg-yellow-500 text-white p-2 rounded">
