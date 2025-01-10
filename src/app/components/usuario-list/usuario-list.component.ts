@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Usuario, UsuarioService } from '../../services/usuario.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-usuario-list',
@@ -20,11 +21,23 @@ export class UsuarioListComponent {
 
     editando = false;
     usuarioId: number | null = null;
+    labelForValues: string[] = [];
 
-    constructor(private usuarioService: UsuarioService) {}
+    constructor(
+        private usuarioService: UsuarioService,
+        private alertService: AlertService,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnInit(): void {
         this.cargarUsuarios();
+    }
+
+    ngAfterViewInit(){
+        const labels = this.elementRef.nativeElement.querySelectorAll('label[for]');
+        this.labelForValues = Array.from(labels).map((label) =>
+            (label as HTMLElement).getAttribute('for') || ''
+        );
     }
 
     cargarUsuarios(): void {
