@@ -53,12 +53,48 @@ export class UsuarioListComponent {
                     this.cargarUsuarios();
                 });
         } else {
-            this.usuarioService.createUsuario(this.usuarioForm)
-                .subscribe(() => {
-                    this.resetForm();
-                    this.cargarUsuarios();
-                });
+            const camposFaltantes = this.labelForValues.filter((campo) => {
+                
+                const nombreCampo = campo.toLowerCase().trim();
+                
+                const propiedadFormulario = Object.keys(this.usuarioForm).find(
+                    key => key.toLowerCase() === nombreCampo
+                );
+
+                if (propiedadFormulario) {
+                  const valor = this.usuarioForm[propiedadFormulario as keyof Usuario];
+                  return this.esCampoVacio(valor);
+                }
+
+                return true;
+            });
+            
+            if (camposFaltantes.length > 0){
+                const msg = 'Por favor, verifique las siguientes advertencias antes de guardar nuevamente la informacion contenida en el formulario de registro';
+                const showMsg = `
+                    ${msg}:<br>
+                    <ul class="swal-text-left">
+                        ${camposFaltantes
+                            .map((campo) => `<li>${campo}</li>`)
+                            .join('')}
+                    </ul>`;
+                this.alertService.showAlert(showMsg, 'Advertencia!', 'warning');
+            }else{
+                this.usuarioService.createUsuario(this.usuarioForm)
+                    .subscribe(() => {
+                        this.resetForm();
+                        this.cargarUsuarios();
+                    });
+            }
         }
+    }
+
+    esCampoVacio(valor: any): boolean {
+        if (valor === null || valor === undefined) return true;
+        if (typeof valor === 'string') return valor.trim() === '';
+        if (typeof valor === 'number') return false;
+        if (Array.isArray(valor)) return valor.length === 0;
+        return false;
     }
 
     editarUsuario(usuario: Usuario): void {
