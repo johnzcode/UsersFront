@@ -20,6 +20,7 @@ export class AlertService {
         html: msg,
         icon: icon,
         showCancelButton: btnCancel,
+        reverseButtons: true,
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#3085d6",
         cancelButtonText: "Cancelar",
