@@ -104,12 +104,16 @@ export class UsuarioListComponent {
     }
 
     eliminarUsuario(id: number): void {
-        if (confirm('¿Estás seguro de eliminar este usuario?')) {
-            this.usuarioService.deleteUsuario(id)
-                .subscribe(() => {
-                    this.cargarUsuarios();
-                });
-        }
+        const msg = '¿Estás seguro de eliminar este usuario?';
+
+        this.alertService.showAlert(msg, 'Confirmacion', 'info', 
+            () => {
+                this.usuarioService.deleteUsuario(id)
+                    .subscribe(() => {
+                        this.cargarUsuarios();
+                    });
+            }, true
+        );
     }
 
     resetForm(): void {
