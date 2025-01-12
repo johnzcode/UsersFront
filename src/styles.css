@@ -4,7 +4,33 @@
 @tailwind utilities;
 
 .swal-text-left {
-    text-align: left;
-    list-style-type: disc;
-    margin: 10px 0 0 20px;
+  text-align: left;
+  list-style-type: disc;
+  margin: 10px 0 0 20px;
+}
+
+.floating-message {
+  position: fixed;
+  top: 6%;
+  left: 20px;
+  background-color: #3f423f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  cursor: pointer;
+}
+
+.floating-message.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.floating-message.hide {
+  opacity: 0;
+  transform: translateX(-100%);
 }
