@@ -3,6 +3,7 @@ import { Usuario, UsuarioService } from '../../services/usuario.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
+import { UtilityService } from '../../utils/utility.service';
 
 @Component({
   selector: 'app-usuario-list',
@@ -26,7 +27,8 @@ export class UsuarioListComponent {
     constructor(
         private usuarioService: UsuarioService,
         private alertService: AlertService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private Util: UtilityService
     ) {}
 
     ngOnInit(): void {
@@ -51,6 +53,7 @@ export class UsuarioListComponent {
                 .subscribe(() => {
                     this.resetForm();
                     this.cargarUsuarios();
+                    this.Util.showFloatingMessage("Usuario modificado correctamente");
                 });
         } else {
             const camposFaltantes = this.labelForValues.filter((campo) => {
@@ -84,6 +87,7 @@ export class UsuarioListComponent {
                     .subscribe(() => {
                         this.resetForm();
                         this.cargarUsuarios();
+                        this.Util.showFloatingMessage("Usuario creado correctamente");
                     });
             }
         }
@@ -111,6 +115,7 @@ export class UsuarioListComponent {
                 this.usuarioService.deleteUsuario(id)
                     .subscribe(() => {
                         this.cargarUsuarios();
+                        this.Util.showFloatingMessage("Usuario eliminado correctamente");
                     });
             }, true
         );
